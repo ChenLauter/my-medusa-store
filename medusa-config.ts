@@ -3,31 +3,29 @@ import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
 module.exports = defineConfig({
-  // modules: [
-  //   {
-  //     resolve: "@medusajs/medusa/locking",
-  //     options: {
-  //       providers: [
-  //         {
-  //           resolve: "@medusajs/medusa/locking-redis",
-  //           id: "locking-redis",
-  //           // set this if you want this provider to be used by default
-  //           // and you have other Locking Module Providers registered.
-  //           is_default: true,
-  //           options: {
-  //             redisUrl: process.env.REDIS_URL,
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   },
-  //   {
-  //     resolve: "@medusajs/medusa/cache-redis",
-  //     options: {
-  //       redisUrl: process.env.REDIS_URL,
-  //     },
-  //   },
-  // ],
+  modules: [
+    {
+      resolve: "@medusajs/medusa/locking",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/locking-redis",
+            id: "locking-redis",
+            is_default: true,
+            options: {
+              redisUrl: process.env.REDIS_URL,
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/cache-redis",
+      options: {
+        redisUrl: process.env.REDIS_URL,
+      },
+    },
+  ],
 
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
